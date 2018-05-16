@@ -1,0 +1,97 @@
+SELECT DISTINCT - removes extra null values and keeps just one row of null.
+
+SELECT DISTINCT clause with more than one column- gives a unique combination of state, city
+
+disinct is same as group by - GROUP BY sorts the result 
+
+SELECT 
+    COUNT(DISTINCT state)
+FROM
+    customers
+WHERE
+    country = 'USA'; ------------------------------> DISTINCT clause with an aggregate function 
+
+
+WHERE clause - BETWEEN.
+BETWEEN date -  SELECT orderNumber,
+         requiredDate,
+         status
+FROM orders
+WHERE requireddate
+    BETWEEN CAST('2003-01-01' AS DATE)
+        AND CAST('2003-01-31' AS DATE);
+
+
+BETWEEN = firstname LIKE T_m = _ any single character in between 
+\ = escape character 
+
+LIKE operator forces MySQL to scan the whole table to find the matching rows - performance 
+
+----------------------------------------------------------------------------------------
+
+Group by 
+SELECT 
+            orderNumber
+        FROM
+            orderDetails
+        GROUP BY orderNumber
+        HAVING SUM(quantityOrdered * priceEach) > 60000
+
+SELECT 
+            orderNumber
+        FROM
+            orderDetails
+  HAVING SUM(quantityOrdered * priceEach) > 60000
+
+whats the difference between the two? 
+Doubt 
+
+-----------------------------------------------------------------------------------------
+
+ORDER BY FIELD = SELECT -------------------------------> TO GIVE CUSTOM ORDER ON A COLUMN
+    orderNumber, status
+FROM
+    orders
+ORDER BY FIELD(status,
+        'In Process',
+        'On Hold',
+        'Cancelled',
+        'Resolved',
+        'Disputed',
+        'Shipped');
+
+----------------------------------------------------------------------------------------
+
+SELECT 
+    item_no
+FROM
+    items
+ORDER BY CAST(item_no AS UNSIGNED) , item_no;
+
+-------------------------------------------------------------------------------
+
+SELECT
+ CONCAT_WS(', ', lastName, firstname) `Full name`
+FROM
+ employees
+ORDER BY
+ `Full name`;
+
+----------------------------------------------------------------------------------------
+SELECT
+ orderNumber `Order no.`,
+ SUM(priceEach * quantityOrdered) total
+FROM
+ orderdetails
+GROUP BY
+ `Order no.`
+HAVING
+ total > 60000;
+-----------------------------------------------------------------------------------------
+SELECT
+ CONCAT_WS(', ', lastName, firstname) AS `Full name`
+FROM
+ employees;
+
+----------------------------------------------------------------------------------------
+
